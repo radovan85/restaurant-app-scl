@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+		<img th:src="@{/images/background/taj3.jpg}" th:style="${'no-repeat center center fixed;background-size: cover;width: 100%'}">
+		<div  style="position: absolute;top: 130px;left:400px;color: red;font-size: 50px;font-weight: bolder;font-family: Merriweather, sans-serif;">
+			<h1 th:text="${'Welcome To Taj Restaurant'}"></h1>
+		</div>
+	
+</th:block>

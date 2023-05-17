@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" 
+		style="margin-top: 120px;margin-bottom: 100px;font-family: Oswald, sans-serif;color: #12044F;font-weight: 700;">
+		<div class="text-center text-uppercase">
+			<h2 th:text="${'Information about ' + user.firstName + ' ' + user.lastName}"></h2>
+		</div>
+		
+		<div class="mt-5">
+			<table class="table table-bordered table-info">
+				<thead>
+					<tr>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Address'}">
+						</td>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'City'}">
+						</td>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Post Code'}">
+						</td>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Total Orders'}">
+						</td>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${address.address}">
+						</td>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${address.city}">
+						</td>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${address.postcode}">
+						</td>
+						<td class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${allOrders.size()}">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="text-center mt-5">
+			<button class="btn-creator-grey mr-3" 
+				th:onclick="redirectAllCustomers()"
+				th:text="${'All Customers'}">
+			</button>
+			
+			<button class="btn-creator-red" 
+				th:onclick="deleteCustomer([[${customer.customerId}]])"
+				th:text="${'Remove Customer'}">
+			</button>
+		</div>
+	</div>
+
+</th:block>

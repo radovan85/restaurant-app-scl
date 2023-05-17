@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" 
+		style="margin-top: 120px;margin-bottom: 100px;font-family: Oswald, sans-serif;color: #12044F;font-weight: 700;">
+		
+		<th:block th:if="${allCustomers.size() == 0}">
+			<div class="text-center">
+				<h2 th:text="${'No registered customers currently'}"></h2>
+			</div>
+			
+			<div class="text-center mt-5">
+				<button class="btn btn-creator-grey" th:onclick="redirectAdmin()"
+					th:text="${'Admin Panel'}">
+				</button>
+			</div>	
+		</th:block>
+		
+		<th:block th:if="${allCustomers.size() > 0}">
+			<div class="text-center text-uppercase">
+				<h2 th:text="${'Customer List'}"></h2>
+			</div>
+			
+			<div class="mt-5">
+				<input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+				<table class="table table-bordered table-stripped table-hover table-info" id="listingTable">
+					<thead class="table-secondary">
+						<tr>
+							<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Customer Id'}">
+							</th>
+            				<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'First Name'}">
+							</th>
+                			<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Last Name'}">
+							</th>
+                			<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Email'}">
+							</th>
+                			<th class="text-center"
+								style="text-align: center; vertical-align: middle;"><span th:text="${'Actions'}"></span>
+							</th>
+                		</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="tempCustomer : ${allCustomers}">
+							<th:block th:each="tempUser : ${allUsers}">
+								<th:block th:if="${tempCustomer.userId == tempUser.id}">
+									<td class="text-center"
+										style="text-align: center; vertical-align: middle;" th:text="${tempCustomer.customerId}">
+									</td>
+									<td class="text-center"
+										style="text-align: center; vertical-align: middle;" th:text="${tempUser.firstName}">
+									</td>
+									<td class="text-center"
+										style="text-align: center; vertical-align: middle;" th:text="${tempUser.lastName}">
+									</td>
+									<td class="text-center"
+										style="text-align: center; vertical-align: middle;" th:text="${tempUser.email}">
+									</td>
+									<td class="text-center"
+										style="text-align: center; vertical-align: middle;">
+										<button class="btn-creator-grey" 
+											th:onclick="redirectCustomerDetails([[${tempCustomer.customerId}]])">Details
+										</button>
+									</td>
+								</th:block>
+							</th:block>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+				
+			<div style="float: right">
+				<button class="btn-creator-blue-light" th:onclick="prevPage()" id="btn_prev">Prev</button>
+					page: <span id="page"></span>
+				<button class="btn-creator-blue-light" th:onclick="nextPage()" id="btn_next">Next</button>
+			</div>
+
+			<script th:src="@{/js/pagination.js}"></script>
+			<script>
+				$(document).ready(function() {
+					changePage(1);
+				});
+			</script>
+			
+		
+		</th:block>
+	</div>
+</th:block>

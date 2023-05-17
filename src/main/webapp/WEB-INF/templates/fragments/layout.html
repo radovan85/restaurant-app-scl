@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Taj Restaurant</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+			  			  
+<link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
+<link href='https://fonts.googleapis.com/css?family=Sarpanch' rel='stylesheet'>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap_v4.5.0.min.css}">
+
+</head>
+
+<body >
+<div class="header" th:fragment = "header">
+		
+		
+	<nav class="navbar navbar-expand-sm" style="background-color:  #141414;font-family: Rajdhani, sans-serif;text-transform: uppercase;height: 90px;position: fixed;top: 0;left: 0;
+    right: 0;z-index: 99;">
+  <!-- Brand -->
+  <a class="navbar-brand" th:onmouseover="this.style='cursor: pointer'"><img th:src="@{/images/logo.png}" style="height:100px;" /></a>
+
+  <!-- Links -->
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" 
+      	th:style="${'color: #5F7EF4;'}"
+      	th:onmouseout="this.style='color: #5F7EF4;'"
+      	th:onmouseover="this.style='cursor: pointer;color: #d9d9d9;'" 
+      	th:onclick="redirectHome()">home
+      </a>
+    </li>
+    <th:block sec:authorize="hasAuthority('ADMIN')">
+    <li class="nav-item">
+      <a class="nav-link" 
+      	th:style="${'color: #5F7EF4;'}"
+      	th:onmouseout="this.style='color: #5F7EF4;'"
+      	th:onmouseover="this.style='cursor: pointer;color: #d9d9d9;'" 
+      	th:onclick="redirectAdmin()">admin
+      </a>
+    </li>
+    </th:block>
+    
+    <th:block sec:authorize="!hasAuthority('ADMIN')">
+    <li class="nav-item">
+      <a class="nav-link" 
+      	th:onclick="redirectAllProducts()"
+      	th:style="${'color: #5F7EF4;'}"
+      	th:onmouseout="this.style='color: #5F7EF4;'"
+      	th:onmouseover="this.style='cursor: pointer;color: #d9d9d9;'" 
+      	>products
+      </a>
+    </li>
+    </th:block>
+    
+    <li class="nav-item">
+      <a class="nav-link"
+      	th:style="${'color: #5F7EF4;'}"
+      	th:onmouseout="this.style='color: #5F7EF4;'"
+      	th:onmouseover="this.style='cursor: pointer;color: #d9d9d9;'" 
+      	th:onclick="redirectAbout()">about
+      </a>
+    </li>
+
+    <th:block sec:authorize="isAnonymous()">
+    <li class="nav-item">
+      <a class="nav-link"
+      	th:onclick="redirectLogin()"
+      	th:style="${'color: #5F7EF4;'}"
+      	th:onmouseout="this.style='color: #5F7EF4;'"
+      	th:onmouseover="this.style='cursor: pointer;color: #d9d9d9;'" >login
+      </a>
+    </li>
+    </th:block>
+
+	<th:block sec:authorize="isAuthenticated()">
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" 
+      	th:style="${'color: #5F7EF4;'}"
+      	th:onmouseout="this.style='color: #5F7EF4;'"
+      	th:onmouseover="this.style='cursor: pointer;color: #d9d9d9;'">
+        <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+      </a>
+      <div class="dropdown-menu">
+      <th:block sec:authorize="hasAuthority('ROLE_USER')">
+      	<a class="dropdown-item" th:onmouseover="this.style='cursor: pointer'" th:onclick="redirectAccountDetails()" >account</a>
+        <a class="dropdown-item" th:onmouseover="this.style='cursor: pointer'" th:onclick="redirectCart()" >cart</a>
+        </th:block>
+        <a class="dropdown-item" th:onmouseover="this.style='cursor: pointer'"  th:onclick="redirectLogout()">logout</a>
+      </div>
+    </li>
+    </th:block>
+  </ul>
+</nav>
+<br>
+  		
+</div>
+
+<div id="footer" th:fragment="footer">
+	<div class="footer"
+		th:style="${'height: 50px;  left: 0; right: 0; bottom: 0; z-index: 99; position: fixed;  text-align: center;vertical-align: middle;background-color: #04070C;color: #d9d9d9;font-family: Oswald, sans-serif;'}">
+		Â©2023 &nbsp;&nbsp;Created by Milan Radovanovic &nbsp;&nbsp; All
+		Rights Reserved
+	</div>
+</div>
+</body>

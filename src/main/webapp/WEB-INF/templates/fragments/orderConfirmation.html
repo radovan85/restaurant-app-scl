@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" 
+		style="margin-top: 120px;margin-bottom: 100px;font-family: Oswald, sans-serif;color: #12044F;font-weight: 700;">
+		<div class="row">
+			<form th:object="${order}" class="form-horizontal" method="POST">
+				<div
+					class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3"
+					style="width: 100%; margin-left: 0%">
+					<div class="text-center">
+						<h1 th:text="${'Receipt'}"></h1>
+					</div>
+					<div class="row" style="color: #040c2f;">
+						<div class="col-xs-6 col-sm-6 col-md-6">
+							<address>
+								<strong th:text="${'Address'}"></strong><br /> 
+								<span th:text="${address.address}"></span> <br /> 
+								<span th:text="${address.city}"></span> 
+								<span th:text="${address.postcode}"></span>
+							</address>
+						</div>
+							
+					</div>
+						
+					<div class="row">
+						<div class="container">
+							<table class="table table-hover" >
+								<thead>
+									<tr>
+										<th class="text-center" th:text="${'Product'}"></th>
+										<th class="text-center" th:text="${'Quantity'}"></th>
+										<th class="text-center" th:text="${'Price'}"></th>
+										<th class="text-center" th:text="${'Hotness Level'}"></th>
+										<th class="text-center" th:text="${'Total'}"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cartItem : ${allCartItems}">
+										<th:block th:each="tempProduct : ${allProducts}">
+											<th:block th:if="${cartItem.productId == tempProduct.productId}">
+												<td style="text-align: center"><em
+													th:text="${tempProduct.productName}"></em></td>
+												<td style="text-align: center" th:text="${cartItem.quantity}"></td>
+												<td style="text-align: center"
+													th:text="${tempProduct.productPrice} % 1 == 0 ? ${tempProduct.productPrice} :${#numbers.formatDecimal(tempProduct.productPrice, 0, 2)}">
+												</td>
+												<td th:text="${cartItem.hotnessLevel}"></td>
+												<td 
+													style="text-align: center" th:text="${cartItem.price} % 1 == 0? ${cartItem.price} :${#numbers.formatDecimal(cartItem.price, 0, 2)}">
+												</td>
+											</th:block>
+										</th:block>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="mt-4">
+			<h3>
+				<strong>
+					Grand Total Price: 
+					<span 
+						th:text="${cart.cartPrice} % 1 == 0 + ' EUR' ? ${cart.cartPrice} :${#numbers.formatDecimal(cart.cartPrice, 0, 2)} + ' EUR'">
+					</span>
+				</strong>
+			</h3>
+		</div>
+					
+		<div class="text-center mt-5">
+           	<button class="btn-creator-grey mr-3" 
+				th:onclick="redirectCart()"
+     			th:text="${'Back'}">
+			</button>
+           			
+            <button class="btn-creator-blue" 
+				th:onclick="executeOrder()" 
+            	th:text="${'Continue'}">
+			</button>
+            
+		</div>		
+	</div>
+</th:block>

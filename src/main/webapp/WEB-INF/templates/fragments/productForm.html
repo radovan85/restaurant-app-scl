@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+	
+<th:block th:fragment="ajaxLoadedContent">
+	<div class="container" 
+		style="margin-top: 120px;margin-bottom: 100px;font-family: Oswald, sans-serif;color: #12044F;font-weight: 700;">
+        <div class="text-center pt-3"> 
+        	<h3 th:style="${'text-transform: uppercase;'}">product form</h3>
+            <hr>
+        </div>
+            
+        <div class="row mt-2">
+        	<div  class="col-md-6 offset-md-3 sigup_form">
+            	<div class="sigup_form">
+					<form class="mt-3" method="POST"  th:object="${product}" id="productAddForm">
+		
+						<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Product Name'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="productName"
+                          		name="productName" 
+                          		th:placeholder="${'Enter Product Name'}"
+                          	/> 
+                          	<span
+								class="text-danger" id="productNameError"
+								th:style="${'visibility: hidden;'}"
+								th:text="${'Not Empty!Max 40 letters allowed!'}"> 
+							</span>        
+                    	</div>
+                    		
+                    	<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Description'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="description"
+                          		name="description" 
+                          		th:placeholder="${'Enter Description'}"
+                          	/> 
+                          	<span
+								class="text-danger" id="descriptionError"
+								th:style="${'visibility: hidden;'}"
+								th:text="${'Not Empty!Max 90 letters allowed!'}"> 
+							</span>        
+                    	</div>
+			
+						<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Product Category'}"></label>
+                          	<select class="form-control" name="category" id="category"  th:field="*{category}">
+           					 	<option th:value="''" th:text="${'Please Select'}"></option>
+            					<option th:each="tempCategory : ${product.categoryList}" th:value="${tempCategory}" th:text="${tempCategory}" >
+    							</option>
+       						</select>
+                          	<span
+								class="text-danger" id="categoryError"
+								th:style="${'visibility: hidden;'}"
+								th:text="${'Please select category!'}"> 
+							</span>        
+                    		</div>
+            
+            			<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Product Price'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="productPrice"
+                          		name="productPrice" 
+                          		th:placeholder="${'Enter Product Price'}"
+                          		th:onkeypress="return validateNumber(event)"
+                          	/> 
+                          	<span class="text-danger" id="productPriceError" 
+            					th:text="${'Please provide valid price!'}" 
+            					style="visibility: hidden">
+            				</span>      
+                    	</div>
+                    	
+                    	<div class="mb-5 col-md-12">
+                        	<label class="form-label" th:text="${'Image Url'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="imageUrl"
+                          		name="imageUrl" 
+                          		th:placeholder="${'Enter Image Url'}"
+                          	/> 
+                          	<span
+								class="text-danger" id="imageUrlError"
+								th:style="${'visibility: hidden;'}"
+								th:text="${'Not Empty!Max 255 letters allowed!'}"> 
+							</span>        
+                    	</div>
+                    		
+                    	
+    
+    					<div class="text-center">
+   				 			<button type="submit" class="btn-creator-dark-blue" 
+   				 				th:text="${'Submit'}">
+   				 			</button>
+    					</div>
+                        
+					</form>	
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var element = document.getElementById("productAddForm");
+		element.addEventListener("submit", event => {
+  			event.preventDefault();
+  			var formData = $("#productAddForm");
+  			if(validateProduct()){
+  				$.ajax({
+  					url : "http://localhost:8080/admin/createProduct",
+  					type: "POST",
+  					data: formData.serialize()
+  				})
+  				.done(function(){
+  					redirectAdminProductList();
+  				})
+  				.fail(function(){
+  					alert("Failed!");
+  				})
+  			}
+		});				
+	</script>
+
+</th:block>
