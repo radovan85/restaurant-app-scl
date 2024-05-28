@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container mt-5 py-5 text-center"
+		style="font-family: Oswald, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<h1 th:text="${'Receipt'}" class="mb-4"></h1>
+				<address class="mb-4">
+					<strong th:text="${'Address'}"></strong><br> <span
+						th:text="${address.address}"></span><br> <span
+						th:text="${address.city}"></span>, <span
+						th:text="${address.postcode}"></span>
+				</address>
+
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col" th:text="${'Product'}"></th>
+							<th scope="col" th:text="${'Quantity'}"></th>
+							<th scope="col" th:text="${'Price'}"></th>
+							<th scope="col" th:text="${'Hotness Level'}"></th>
+							<th scope="col" th:text="${'Total'}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="tempProduct : ${allProducts}">
+							<th:block th:each="cartItem : ${allCartItems}"
+								th:if="${cartItem.productId == tempProduct.id}">
+								<tr>
+									<td th:text="${tempProduct.productName}"></td>
+									<td th:text="${cartItem.quantity}"></td>
+									<td><span>&euro;</span><span
+										th:text="${#numbers.formatDecimal(tempProduct.productPrice, 0, 2)}"></span></td>
+									<td th:text="${cartItem.hotnessLevel}"></td>
+									<td><span>&euro;</span><span
+										th:text="${#numbers.formatDecimal(cartItem.price, 0, 2)}"></span></td>
+								</tr>
+							</th:block>
+						</th:block>
+					</tbody>
+				</table>
+
+				<h3 class="mt-4">
+					<strong>Grand Total Price: &euro;<span
+						th:text="${#numbers.formatDecimal(cart.cartPrice, 0, 2)}"></span></strong>
+				</h3>
+
+				<div class="mt-5">
+					<button class="btn btn-secondary mr-3" th:onclick="redirectCart()"
+						th:text="${'Back'}"></button>
+					<button class="btn btn-primary" th:onclick="executeOrder()"
+						th:text="${'Continue'}"></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

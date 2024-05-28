@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<th:block th:fragment="fragmentContent">
+    <div class="container" style="margin-top: 120px; margin-bottom: 100px; font-family: 'Roboto', sans-serif; color: #333;">
+        <h1 class="text-center mt-5" style="font-weight: 900; color: #007BFF;">Administrator Panel</h1>
+        <div class="row mt-5">
+            <div class="col-md-4 text-center">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #007BFF;">Product Management</h5>
+                        <p class="card-text">Manage your product inventory with ease.</p>
+                        <a class="btn btn-primary" th:onclick="redirectAdminProductList()">Go to Products</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #28A745;">Customer Management</h5>
+                        <p class="card-text">View and manage customer information.</p>
+                        <a class="btn btn-success" th:onclick="redirectAllCustomers()">Go to Customers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #FFC107;">Orders</h5>
+                        <p class="card-text">Track and update customer orders.</p>
+                        <a class="btn btn-warning" th:onclick="redirectAllOrders()">Go to Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

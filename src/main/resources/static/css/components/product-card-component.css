@@ -1,0 +1,105 @@
+/* Generalni stilovi */
+.container {
+    margin-top: 80px; /* Smanjeno za bolji izgled */
+    margin-bottom: 100px; /* Smanjeno za bolji izgled */
+    font-family: 'Oswald', sans-serif;
+    color: #12044F;
+    font-weight: 700;
+}
+
+/* Stilovi za dugmad */
+.btn-dark-red {
+    background-color: #a00;
+    color: white;
+    border: none; /* Uklonjeni ivični stilovi */
+    padding: 10px 20px; /* Dodat padding za veći komfor */
+    transition: background-color 0.3s ease; /* Dodat efekat prelaza */
+}
+
+.btn-dark-red:hover, .btn-dark-red:focus {
+    background-color: #900;
+    color: white;
+    outline: none; /* Uklonjen outline pri fokusu */
+}
+
+.button-spacing {
+    margin-right: 20px;
+}
+
+/* Stilovi za kartice */
+.card {
+    border: none; /* Uklonjen ivični stil */
+    border-radius: 10px; /* Zaobljeniji uglovi */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Jača senka za dublji efekat */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Dodati efekti prelaza */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efekat podizanja kartice */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Jača senka pri prelasku */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 250px; /* Fiksna visina za sve slike */
+    object-fit: cover; /* Obezbeđuje da slika pokrije dostupan prostor bez gubitka proporcija */
+}
+
+.card-body {
+    padding: 20px; /* Povećan padding za više prostora */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Povećana veličina naslova */
+    margin-bottom: 10px; /* Smanjen razmak ispod naslova */
+}
+
+.card-text {
+    display: flex; /* Omogućava fleksibilno pozicioniranje sadržaja */
+    flex-direction: column; /* Organizuje sadržaj vertikalno */
+    justify-content: center; /* Centrira sadržaj unutar elementa */
+    height: 100px; /* Fiksna visina za sve opise */
+    overflow: hidden; /* Sakriva višak teksta */
+    text-overflow: ellipsis; /* Dodaje tri tačke ako tekst prelazi dostupan prostor */
+}
+
+.pagination {
+    text-align: right; /* Poravnava dugmiće za paginaciju na desnu stranu */
+}
+
+/* Ako želite da dugmići budu grupisani zajedno na desnoj strani */
+.pagination button {
+    display: inline-block; /* Dugmići će biti u liniji jedan pored drugog */
+    margin-left: 5px; /* Dodaje malo prostora između dugmića */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 200px; /* Adjust image height for smaller devices */
+    }
+    .card-body {
+        padding: 15px; /* Adjust padding for smaller devices */
+    }
+    .card-title, .card-text {
+        font-size: 1rem; /* Adjust font size for smaller devices */
+    }
+    .btn-dark-red {
+        padding: 8px 16px; /* Adjust button padding for smaller devices */
+    }
+    .button-spacing {
+        margin-right: 10px; /* Adjust button spacing for smaller devices */
+    }
+}
+
+@media (max-width: 576px) {
+    .col-md-4 {
+        flex: 0 0 100%; /* Full width for extra small devices */
+        max-width: 100%;
+    }
+    .card {
+        margin: 10px 0; /* Adjust card margin for extra small devices */
+    }
+}
+

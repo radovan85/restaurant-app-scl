@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+<div class="container text-center my-5 py-5 bg-white rounded-3 shadow">
+        <h1 class="display-4 fw-bold text-primary">Registration Failed</h1>
+        <h3 class="text-danger">Email already exists</h3>
+        <div class="mt-5">
+            <button class="btn btn-outline-primary me-3" th:onclick="redirectHome()">Home</button>
+            <button class="btn btn-danger" th:onclick="redirectRegister()">Retry</button>
+        </div>
+    </div>
+
+</th:block>

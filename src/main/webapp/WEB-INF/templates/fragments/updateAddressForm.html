@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+    <div class="container mt-5" style="margin-bottom: 100px;">
+        <div class="text-center mb-4">
+            <h2 class="font-weight-bold text-uppercase" th:text="${'address update form'}"></h2>
+            <hr class="w-50 mx-auto">
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form class="bg-light p-4 rounded shadow" method="POST" th:object="${address}" id="addressForm">
+                    <input type="hidden" name="id" th:value="${currentAddress.id}">
+
+                    <div class="form-group mb-3">
+                        <label for="address" class="form-label" th:text="${'Address'}"></label>
+                        <input type="text" class="form-control" id="address" name="address" th:placeholder="${'Enter Address'}" th:value="${currentAddress.address}" >
+                        <div class="text-danger" id="addressError" th:text="${'Not Empty! Max 75 letters allowed!'}" style="visibility: hidden;"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="city" class="form-label" th:text="${'City'}"></label>
+                        <input type="text" class="form-control" id="city" name="city" th:placeholder="${'Enter City'}" th:value="${currentAddress.city}" >
+                        <div class="text-danger" id="cityError" th:text="${'Not Empty! Max 40 letters allowed!'}" style="visibility: hidden;"></div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="postcode" class="form-label" th:text="${'Post Code'}"></label>
+                        <input type="text" class="form-control" id="postcode" name="postcode" th:placeholder="${'Enter Post Code'}" th:value="${currentAddress.postcode}" >
+                        <div class="text-danger" id="postcodeError" th:text="${'Minimum 5 and Max 10 letters allowed!'}" style="visibility: hidden;"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="button" th:text="${'Update'}" th:onclick="updateAddress()">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

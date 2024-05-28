@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 shadow">
+					<div class="card-header bg-primary text-white text-center">
+						<h3 class="mb-0">Product Form</h3>
+					</div>
+					<div class="card-body p-4">
+						<form method="POST" th:object="${product}" id="productAddForm">
+							<div class="mb-3">
+								<label for="productName" class="form-label">Product Name</label>
+								<input 
+									type="text" 
+									class="form-control" 
+									id="productName"
+									name="productName" 
+									placeholder="Enter Product Name"
+								/> 
+								<span 
+									class="text-danger"
+									id="productNameError" 
+									style="visibility: hidden;">
+									Not Empty! Max 40 letters allowed!</span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="description" class="form-label">Description</label>
+								<input 
+									type="text" 
+									class="form-control" 
+									id="description"
+									name="description" 
+									placeholder="Enter Description"
+								/> 
+								<span 
+									class="text-danger"
+									id="descriptionError" 
+									style="visibility: hidden;">
+									Not Empty! Max 90 letters allowed!
+								</span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="category" class="form-label">Product Category</label> 
+								<select 
+									class="form-select" 
+									id="category"
+									name="category">
+									<option th:value="''">Please Select</option>
+									<option th:each="tempCategory : ${product.categoryList}"
+										th:value="${tempCategory}" th:text="${tempCategory}"></option>
+								</select> 
+								<span 
+									class="text-danger" 
+									id="categoryError"
+									style="visibility: hidden;">
+									Please select category!
+								</span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="productPrice" class="form-label">Product Price</label> 
+								<input 
+									type="text" 
+									class="form-control" 
+									id="productPrice"
+									name="productPrice" 
+									placeholder="Enter Product Price"
+									th:onkeydown="return validateNumber(event)" 
+								/> 
+								<span
+									class="text-danger" 
+									id="productPriceError"
+									style="visibility: hidden;">
+									Please provide valid price!
+								</span>
+							</div>
+							
+							<div class="mb-3">
+								<label for="imageUrl" class="form-label">Image Url</label> 
+								<input
+									type="text" 
+									class="form-control" 
+									id="imageUrl" name="imageUrl"
+									placeholder="Enter Image Url" 
+								/> 
+								<span
+									class="text-danger" 
+									id="imageUrlError"
+									style="visibility: hidden;">
+									Not Empty! Max 255 letters allowed!
+								</span>
+							</div>
+							
+							<div class="text-center">
+								<button type="button" class="btn btn-primary"
+									th:onclick="addProduct()">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</th:block>
+</html>

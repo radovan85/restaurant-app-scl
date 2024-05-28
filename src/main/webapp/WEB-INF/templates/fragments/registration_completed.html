@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+	<div class="container mt-5 p-5 bg-light rounded-3 shadow">
+        <h1 class="mb-4">Registration Completed</h1>
+        <button class="btn btn-primary" th:onclick="redirectLogin()">Login Page</button>
+    </div>
+</th:block>

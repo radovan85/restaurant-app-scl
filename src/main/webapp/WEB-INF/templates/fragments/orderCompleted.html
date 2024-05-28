@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container my-5 py-5 text-center"
+		style="font-family: Oswald, sans-serif; color: #12044F; font-weight: 700;">
+		<div class="card border-primary mb-3">
+			<div class="card-header bg-primary text-white">Order Completed</div>
+			<div class="card-body">
+				<h4 class="card-title"
+					th:text="${'Thank you for buying our products!'}"></h4>
+				<p class="card-text">Your order has been successfully processed.
+					We hope you enjoy your purchase!</p>
+			</div>
+		</div>
+
+		<div class="mt-4">
+			<button class="btn btn-primary" th:onclick="redirectAllProducts()"
+				th:text="${'All Products'}"></button>
+		</div>
+	</div>
+</th:block>
+</html>

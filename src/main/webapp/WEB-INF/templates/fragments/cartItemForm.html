@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+        <div class="container mt-5" style="margin-bottom: 100px;">
+            <div class="text-center text-uppercase mb-5">
+                <h2 th:text="${'Product Details'}" class="fw-bold text-primary"></h2>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <tbody>
+                        <tr>
+                            <td class="text-center fw-bold">Product Image</td>
+                            <td class="text-center">
+                                <img th:onerror="this.src='https://st3.depositphotos.com/1322515/35964/v/1600/depositphotos_359648638-stock-illustration-image-available-icon.jpg'"
+                                    th:src="@{${selectedProduct.imageUrl}}" width="30%" height="150px" alt="Product Image" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">Product Name</td>
+                            <td class="text-center" th:text="${selectedProduct.productName}">Product Name</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">Description</td>
+                            <td class="text-center" th:text="${selectedProduct.description}">Description</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">Category</td>
+                            <td class="text-center" th:text="${selectedProduct.category}">Category</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center fw-bold">Product Price</td>
+                            <td class="text-center">
+                                <span>&euro;</span>
+                                <span th:text="${#numbers.formatDecimal(selectedProduct.productPrice, 0, 2)}">Price</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row mt-4 justify-content-center">
+                <div class="col-md-6">
+                    <form class="mt-3" method="POST" th:object="${cartItem}" id="itemForm">
+                        <input type="hidden" name="productId" th:value="${selectedProduct.id}" />
+
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label" th:text="${'Quantity'}">Quantity</label>
+                            <input type="text" class="form-control" id="quantity" name="quantity" th:placeholder="${'Enter Quantity'}" th:onkeypress="return validateNumber(event)" />
+                            <div class="text-danger" id="quantityError" th:text="${'Please provide valid quantity!'}" style="visibility: hidden;"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="hotnessLevel" class="form-label" th:text="${'Hotness Level'}">Hotness Level</label>
+                            <select class="form-select" name="hotnessLevel" id="hotnessLevel">
+                                <option value="" th:text="${'Select Hotness Level'}">Select Hotness Level</option>
+                                <option th:each="tempLevel : ${allHotnessLevels}" th:value="${tempLevel}" th:text="${tempLevel}"></option>
+                            </select>
+                            <div class="text-danger" id="hotnessLevelError" th:text="${'Please select hotness level!'}" style="visibility: hidden;"></div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-lg" type="button" th:text="${'Add To Cart'}" th:onclick="addCartItem()">Add To Cart</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </th:block>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/css/components/product-card-component.css?newversion}" />
+	<div class="container mt-5"
+		style="font-family: Oswald, sans-serif; color: #12044F; font-weight: 700;">
+		<th:block th:if="${allProducts.length == 0}">
+			<div class="text-center">
+				<h2 th:text="'This category is empty currently'"></h2>
+				<div class="mt-5">
+					<button class="btn btn-secondary" th:onclick="redirectHome()">Home</button>
+					<th:block sec:authorize="hasAuthority('ADMIN')">
+						<button class="btn btn-primary" th:onclick="redirectAddProduct()">Add
+							Product</button>
+					</th:block>
+				</div>
+			</div>
+		</th:block>
+		<th:block th:if="${allProducts.length > 0}">
+			<div class="text-center text-uppercase">
+				<h2 th:text="'Menu'"></h2>
+			</div>
+			<div class="text-center mt-4 mb-5 d-inline-flex">
+				<button class="btn btn-dark-red button-spacing"
+					th:onclick="redirectAllProducts()">All</button>
+				<th:block th:each="tempCategory : ${product.categoryList}">
+					<button class="btn btn-dark-red button-spacing"
+						th:onclick="redirectAllProductsByCategory([[${tempCategory}]])">
+						<span th:text="${tempCategory}"></span>
+					</button>
+				</th:block>
+			</div>
+			<div class="row">
+				<th:block th:each="tempProduct : ${allProducts}">
+					<div class="col-md-4 mb-4">
+						<div class="card h-100">
+							<img
+								th:onerror="this.src='https://st3.depositphotos.com/1322515/35964/v/1600/depositphotos_359648638-stock-illustration-image-available-icon.jpg'"
+								th:src="@{${tempProduct.imageUrl}}" class="card-img-top">
+							<div class="card-body">
+								<h4 class="card-title" th:text="${tempProduct.productName}"></h4>
+								<h4>
+									<span>&euro;</span> 
+									<span th:text="${#numbers.formatDecimal(tempProduct.productPrice, 0, 2)}"></span>
+								</h4>
+								<p class="card-text" th:text="${tempProduct.description}"
+									style="height: 100px;"></p>
+								<button class="btn btn-dark-red"
+									th:onclick="redirectItemForm([[${tempProduct.id}]])">
+									<span class="fas fa-shopping-cart">&nbsp;&nbsp;</span> Add To
+									Cart
+								</button>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<!-- Dodajte ovaj div na kraj vašeg 'container' div-a za paginaciju -->
+			<div class="pagination"></div>
+			
+			<script>
+			var allItems = document.querySelectorAll('.row .col-md-4');
+		    var itemsPerPage = 9;
+		    var currentPage = 1;
+
+		    function renderItems(page) {
+		        var startIndex = (page - 1) * itemsPerPage;
+		        var endIndex = startIndex + itemsPerPage;
+		        allItems.forEach((item, index) => {
+		            item.style.display = (index >= startIndex && index < endIndex) ? '' : 'none';
+		        });
+		    }
+
+		    function setupPagination(totalItems) {
+		        var pageCount = Math.ceil(totalItems / itemsPerPage);
+		        var paginationElement = document.querySelector('.pagination');
+		        paginationElement.innerHTML = ''; 
+
+		        for (let i = 1; i <= pageCount; i++) {
+		            var pageButton = document.createElement('button');
+		            pageButton.innerText = i;
+		            pageButton.onclick = function() {
+		                currentPage = i;
+		                renderItems(currentPage);
+		            };
+		            paginationElement.appendChild(pageButton);
+		        }
+		    }
+
+		    setupPagination(allItems.length);
+		    renderItems(currentPage);
+
+			</script>	
+		</th:block>
+	</div>
+</th:block>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container mt-5" style="margin-bottom: 100px;">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-primary text-white text-center">
+						<h2 class="mb-0" th:text="${'Product Details'}"></h2>
+					</div>
+					<div class="card-body">
+						<div class="row mb-3">
+							<div class="col text-center">
+								<img
+									th:onerror="this.src='https://st3.depositphotos.com/1322515/35964/v/1600/depositphotos_359648638-stock-illustration-image-available-icon.jpg'"
+									th:src="@{${currentProduct.imageUrl}}" class="img-fluid"
+									style="max-height: 150px;">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col text-center" th:text="${'Product Name'}"></div>
+							<div class="col text-center"
+								th:text="${currentProduct.productName}"></div>
+						</div>
+						<div class="row mb-3">
+							<div class="col text-center" th:text="${'Product Price'}"></div>
+							<div class="col text-center">
+								<span>&euro;</span> <span
+									th:text="${#numbers.formatDecimal(currentProduct.productPrice, 0, 2)}"></span>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col text-center" th:text="${'Description'}"></div>
+							<div class="col text-center"
+								th:text="${currentProduct.description}"></div>
+						</div>
+						<div class="row mb-3">
+							<div class="col text-center" th:text="${'Category'}"></div>
+							<div class="col text-center" th:text="${currentProduct.category}"></div>
+						</div>
+					</div>
+					<div class="card-footer text-center">
+						<button class="btn btn-primary"
+							th:onclick="redirectAdminProductList()"
+							th:text="${'All Products'}"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

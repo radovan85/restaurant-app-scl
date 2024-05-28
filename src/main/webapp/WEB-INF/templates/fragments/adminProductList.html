@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<th:block th:fragment="fragmentContent">
+	<link rel="stylesheet" type="text/css"
+		th:href="@{/css/components/product-table-component.css?newversion}" />
+	<div class="container">
+
+		<th:block th:if="${allProducts.length == 0}">
+			<div class="text-center mt-5 text-primary">
+				<h2>No products available</h2>
+				<div class="mt-3">
+				<button class="btn btn-secondary" th:onclick="redirectHome()">Home
+					Page</button>
+				<button class="btn btn-info" th:onclick="redirectAddProduct()">Add Product</button>
+				</div>
+			</div>
+		</th:block>
+
+		<th:block th:if="${allProducts.length > 0}">
+			<div class="text-center text-primary mt-5 mb-5">
+				<h2>Product List</h2>
+			</div>
+			<button class="btn btn-info mb-4" th:onclick="redirectAddProduct()">Add
+				Product</button>
+			<input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+			<table class="product-table" id="listingTable">
+				<thead>
+					<tr>
+						<th>Preview</th>
+						<th>Product Name</th>
+						<th>Category</th>
+						<th>Price</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="tempProduct : ${allProducts}">
+						<tr>
+							<td><img
+								th:onerror="this.src='https://st3.depositphotos.com/1322515/35964/v/1600/depositphotos_359648638-stock-illustration-image-available-icon.jpg'"
+								th:src="@{${tempProduct.imageUrl}}" class="product-image"></td>
+							<td th:text="${tempProduct.productName}"></td>
+							<td th:text="${tempProduct.category}"></td>
+							<td><span>&euro;</span> <span
+								th:text="${#numbers.formatDecimal(tempProduct.productPrice, 0, 2)}"></span>
+
+							</td>
+							<td class="table-actions">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button"
+										id="dropdownMenuButton" data-bs-toggle="dropdown"
+										aria-expanded="false">Actions</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<li><a class="dropdown-item"
+											th:onclick="redirectProductDetails([[${tempProduct.id}]])">Details</a></li>
+										<li><a class="dropdown-item"
+											th:onclick="redirectUpdateProduct([[${tempProduct.id}]])">Edit</a></li>
+										<li><a class="dropdown-item"
+											th:onclick="deleteProduct([[${tempProduct.id}]])">Delete</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+
+			<div id="pagination" class="d-flex justify-content-end mt-3">
+				<button th:onclick="prevPage()" id="btn_prev"
+					class="btn btn-primary me-2">Prev</button>
+				<span id="page" class="align-self-center"></span>
+				<button th:onclick="nextPage()" id="btn_next"
+					class="btn btn-primary ms-2">Next</button>
+			</div>
+
+			<script th:src="@{/js/pagination.js?newversion}"></script>
+		</th:block>
+	</div>
+
+
+
+
+</th:block>
