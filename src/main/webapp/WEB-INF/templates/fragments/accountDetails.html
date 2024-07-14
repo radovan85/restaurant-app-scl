@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container my-5">
+		<div class="text-center text-uppercase mb-4">
+			<h2 class="font-weight-bold" th:text="${'Account Information'}"></h2>
+		</div>
+
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<th scope="row" th:text="${'Full name'}"></th>
+							<td th:text="${authUser.firstName + ' ' + authUser.lastName}"></td>
+						</tr>
+						<tr>
+							<th scope="row" th:text="${'Email'}"></th>
+							<td th:text="${authUser.email}"></td>
+						</tr>
+						<tr>
+							<th scope="row" th:text="${'Address'}"></th>
+							<td th:text="${address.address}"></td>
+						</tr>
+						<tr>
+							<th scope="row" th:text="${'City'}"></th>
+							<td th:text="${address.city}"></td>
+						</tr>
+						<tr>
+							<th scope="row" th:text="${'Post Code'}"></th>
+							<td th:text="${address.postcode}"></td>
+						</tr>
+						<tr>
+							<th scope="row" th:text="${'Address Update'}"></th>
+							<td>
+								<button class="btn btn-outline-secondary"
+									th:onclick="redirectUpdateAddress([[${address.id}]])"
+									th:text="${'Update'}"></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="text-center mt-4">
+			<button class="btn btn-outline-primary" th:onclick="redirectHome()"
+				th:text="${'Home Page'}"></button>
+		</div>
+	</div>
+</th:block>
+</html>

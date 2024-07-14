@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container mt-5 text-center" 
+		style="font-family: Oswald, sans-serif; color: #12044F; font-weight: 700;margin-bottom: 100px;">
+		<div class="bg-danger text-white p-5 mb-5">
+			<h2 th:text="${'All Products in your cart'}"></h2>
+		</div>
+
+		<div class="btn-group mb-5" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-danger"
+				th:onclick="eraseAllItems([[${cart.id}]])"
+				th:text="${'Clear Cart'}"></button>
+			<button type="button" class="btn btn-info"
+				th:onclick="redirectOrderConfirmation([[${cart.id}]])"
+				th:text="${'Checkout'}"></button>
+		</div>
+
+		<table class="table table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col" th:text="${'Item Id'}"></th>
+					<th scope="col" th:text="${'Product'}"></th>
+					<th scope="col" th:text="${'Unit Price'}"></th>
+					<th scope="col" th:text="${'Quantity'}"></th>
+					<th scope="col" th:text="${'Hotness Level'}"></th>
+					<th scope="col" th:text="${'Cart Price'}"></th>
+					<th scope="col" th:text="${'Action'}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="tempProduct : ${allProducts}">
+					<th:block th:each="cartItem : ${allCartItems}"
+						th:if="${cartItem.productId == tempProduct.id}">
+						<tr>
+							<td th:text="${cartItem.id}"></td>
+							<td th:text="${tempProduct.productName}"></td>
+							<td><span>&euro;</span> <span
+								th:text="${#numbers.formatDecimal(tempProduct.productPrice, 0, 2)}"></span>
+							</td>
+							<td th:text="${cartItem.quantity}"></td>
+							<td th:text="${cartItem.hotnessLevel}"></td>
+							<td><span>&euro;</span> <span
+								th:text="${#numbers.formatDecimal(cartItem.price, 0, 2)}"></span>
+							</td>
+							<td><button type="button" class="btn btn-danger"
+									th:onclick="eraseItem([[${cartItem.id}]])"
+									th:text="${'Remove'}"></button></td>
+						</tr>
+					</th:block>
+				</th:block>
+				<tr>
+					<td colspan="4"></td>
+					<td class="text-right font-weight-bold" style="vertical-align: middle;">Final Price:</td>
+					<td class="text-center font-weight-bold" style="vertical-align: middle;">
+						<span>&euro;</span>
+						<span th:text="${#numbers.formatDecimal(cart.cartPrice, 0, 2)}"></span>
+					</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<button type="button" class="btn btn-secondary mt-5"
+			th:onclick="redirectAllProducts()" th:text="${'Continue Shopping'}"></button>
+	</div>
+</th:block>
+</html>

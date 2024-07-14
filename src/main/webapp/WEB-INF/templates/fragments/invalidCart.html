@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container my-5 text-center"
+		style="font-family: Oswald, sans-serif; color: #12044F; font-weight: 700;">
+		<div class="alert alert-danger" role="alert">
+			<h4 class="alert-heading" th:text="${'Invalid Cart'}"></h4>
+			<p th:text="${'Please add products in your cart'}"></p>
+		</div>
+
+		<div class="mt-4">
+			<button class="btn btn-outline-primary"
+				th:onclick="redirectAllProducts()" th:text="${'All Products'}"></button>
+		</div>
+	</div>
+</th:block>
+</html>

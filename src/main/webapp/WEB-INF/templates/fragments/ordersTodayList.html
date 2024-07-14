@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container mt-5" style="margin-bottom: 100px;">
+		<th:block th:if="${allOrders.length == 0}">
+			<div class="text-center">
+				<h2 th:text="${'No orders for today currently'}" class="mb-4"></h2>
+				<button class="btn btn-primary" th:onclick="redirectAdmin()"
+					th:text="${'Admin Panel'}">Admin Panel</button>
+			</div>
+		</th:block>
+
+		<th:block th:if="${allOrders.length > 0}">
+			<div class="text-center mb-4">
+				<h2 th:text="${'Orders For Today'}" class="text-uppercase"></h2>
+				<button class="btn btn-primary mt-3"
+					th:onclick="redirectAllOrders()" >All Orders</button>
+			</div>
+
+			<div class="table-responsive mt-4">
+				<input type="hidden" id="recordsPerPage"
+					th:value="${recordsPerPage}">
+				<table class="table table-striped table-hover" id="listingTable">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col" th:text="${'Order Id'}"></th>
+							<th scope="col" th:text="${'First Name'}"></th>
+							<th scope="col" th:text="${'Last Name'}"></th>
+							<th scope="col" th:text="${'Email'}"></th>
+							<th scope="col" th:text="${'Actions'}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="tempCustomer : ${allCustomers}">
+							<th:block th:each="tempUser : ${allUsers}">
+								<th:block th:each="tempOrder : ${allOrders}"
+									th:if="${tempOrder.cartId == tempCustomer.cartId} and ${tempCustomer.userId == tempUser.id}">
+									<tr>
+										<td th:text="${tempOrder.id}"></td>
+										<td th:text="${tempUser.firstName}"></td>
+										<td th:text="${tempUser.lastName}"></td>
+										<td th:text="${tempUser.email}"></td>
+										<td>
+											<button class="btn btn-info"
+												th:onclick="redirectOrderDetails([[${tempOrder.id}]])"
+												th:text="${'Order Details'}">Order Details</button>
+										</td>
+									</tr>
+								</th:block>
+							</th:block>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="d-flex justify-content-end mt-4">
+				<button class="btn btn-outline-secondary mr-2"
+					th:onclick="prevPage()" id="btn_prev" th:text="${'Prev'}">Prev</button>
+				<span>Page: <span id="page"></span></span>
+				<button class="btn btn-outline-secondary ml-2"
+					th:onclick="nextPage()" id="btn_next" th:text="${'Next'}">Next</button>
+			</div>
+
+			<script th:src="@{/js/pagination.js}"></script>
+		</th:block>
+	</div>
+</th:block>
+</html>

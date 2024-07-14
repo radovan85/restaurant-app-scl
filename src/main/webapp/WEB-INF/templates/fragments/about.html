@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+
+	<div class="container mt-5" style="margin-bottom: 100px;">
+		<div class="about-section">
+			<h1>About Us</h1>
+			<p>Welcome to our restaurant! Our mission is to provide you with
+				an unforgettable dining experience with the finest delicacies.</p>
+			<p>Our team of professional chefs uses only the highest quality
+				ingredients to prepare authentic dishes full of flavor.</p>
+			<img th:src="@{/images/restaurant.jpg}" alt="Image of our restaurant" style="width:100%; max-width:1200px; height:auto;">
+			<h2>Our Story</h2>
+			<p>Founded in 1997, our restaurant was envisioned as a gathering
+				place for lovers of good food and a pleasant atmosphere.</p>
+			<h2>Why Choose Us?</h2>
+			<ul>
+				<li>High-quality service</li>
+				<li>Exceptional culinary experiences</li>
+				<li>Warm and inviting environment</li>
+				<li>Excellent location</li>
+			</ul>
+		</div>
+	</div>
+
+</th:block>

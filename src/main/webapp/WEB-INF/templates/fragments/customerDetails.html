@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container mt-5" style="margin-bottom: 100px;">
+		<div class="text-center mb-4">
+			<h2 class="font-weight-bold text-uppercase"
+				th:text="${'Information about ' + user.firstName + ' ' + user.lastName}"></h2>
+		</div>
+
+		<div class="table-responsive mt-4">
+			<table class="table table-striped table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col" th:text="${'Address'}"></th>
+						<th scope="col" th:text="${'City'}"></th>
+						<th scope="col" th:text="${'Post Code'}"></th>
+						<th scope="col" th:text="${'Total Orders'}"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${address.address}"></td>
+						<td th:text="${address.city}"></td>
+						<td th:text="${address.postcode}"></td>
+						<td th:text="${allOrders.length}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="text-center mt-4">
+			<button class="btn btn-outline-primary mr-3"
+				th:onclick="redirectAllCustomers()" th:text="${'All Customers'}">All
+				Customers</button>
+			<button class="btn btn-danger"
+				th:onclick="deleteCustomer([[${customer.id}]])"
+				th:text="${'Remove Customer'}">Remove Customer</button>
+		</div>
+	</div>
+</th:block>
+</html>

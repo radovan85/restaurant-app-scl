@@ -1,0 +1,83 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #050202;
+}
+
+
+.navbar {
+  background-color: #050202;
+  color: #ffffff; 
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+  color: #ffffff; 
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #050202;
+}
+
+
+.navbar {
+  background-color: #050202;
+  color: #ffffff; 
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+  color: #ffffff; 
+}
+
+.footer {
+    height: 50px; /* Fiksna visina footera */
+    padding: 10px 0; /* Dodajte odgovarajući padding */
+    background-color: #343a40; /* Boja pozadine footera */
+    color: #ffffff; /* Boja teksta u footeru */
+    text-align: center; /* Centriranje teksta */
+    width: 100%; /* Osigurava da footer zauzima punu širinu */
+    position: fixed; /* Footer ostaje na dnu */
+    bottom: 0; /* Pozicioniranje na dnu stranice */
+    left: 0; /* Poravnanje sa levom stranom */
+    display: flex; /* Omogućava fleksibilno pozicioniranje sadržaja */
+    align-items: center; /* Vertikalno centriranje sadržaja */
+    justify-content: center; /* Horizontalno centriranje sadržaja */
+}
+
+
+
+a:hover {
+	cursor: pointer;
+}
+
+
+a:hover {
+	cursor: pointer;
+}

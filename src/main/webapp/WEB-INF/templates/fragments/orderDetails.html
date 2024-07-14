@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="fragmentContent">
+	<div class="container mt-5" style="margin-bottom: 100px;">
+		<div class="text-center mb-4">
+			<h1 th:text="${'Order'}" class="display-4"></h1>
+			<p class="lead" th:text="${'Order, customer and product list'}"></p>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<form th:object="${order}" class="form-horizontal">
+					<div class="card">
+						<div class="card-header text-center">
+							<h2 th:text="${'Receipt'}" class="font-weight-bold"></h2>
+						</div>
+						<div class="card-body">
+							<address>
+								<strong th:text="${'Delivery Address'}"></strong><br /> <span
+									th:text="${address.address}"></span><br /> <span
+									th:text="${address.city}"></span><br /> <span
+									th:text="${address.postcode}"></span><br />
+							</address>
+
+							<div class="mb-2">
+								<span th:text="${'Order Date: ' + order.createdAt}"></span>
+							</div>
+
+							<div class="mb-2">
+								<span th:text="${'Phone: ' + customer.customerPhone}"></span>
+							</div>
+
+							<table class="table table-hover mt-4">
+								<thead class="thead-dark">
+									<tr>
+										<th th:text="${'Product'}" style="text-align: center;vertical-align: middle;"></th>
+										<th th:text="${'#'}" style="text-align: center;vertical-align: middle;"></th>
+										<th th:text="${'Hotness'}" style="text-align: center;vertical-align: middle;"></th>
+										<th th:text="${'Price'}" style="text-align: center;vertical-align: middle;"></th>
+										<th th:text="${'Total'}" style="text-align: center;vertical-align: middle;"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="orderItem : ${orderedItems}">
+										<td style="text-align: center;vertical-align: middle;"><em th:text="${orderItem.productName}"></em></td>
+										<td style="text-align: center;vertical-align: middle;" th:text="${orderItem.quantity}"></td>
+										<td style="text-align: center;vertical-align: middle;"
+											th:text="${orderItem.hotnessLevel}"></td>
+										<td style="text-align: center"><span>&euro;</span> <span
+											th:text="${#numbers.formatDecimal(orderItem.productPrice, 0, 2)}"></span>
+										</td>
+										<td style="text-align: center"><span>&euro;</span> <span
+											th:text="${#numbers.formatDecimal(orderItem.price, 0, 2)}"></span>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3" class="text-right font-weight-bold">Grand
+											Total:</td>
+										<td colspan="2" class="text-center text-danger"><strong>&euro;</strong>
+											<strong th:text="${#numbers.formatDecimal(order.orderPrice, 0, 2)}"></strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="text-center mt-5">
+			<button class="btn btn-secondary mr-3"
+				th:onclick="redirectAllOrders()" th:text="${'Back'}">Back</button>
+			<button class="btn btn-danger"
+				th:onclick="deleteOrder([[${order.id}]])" th:text="${'Delete'}">Delete</button>
+		</div>
+	</div>
+</th:block>
+</html>
